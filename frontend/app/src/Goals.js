@@ -1,5 +1,5 @@
 import React from 'react';
-import { useQuery } from 'react-apollo';
+import { useQuery, useMutation } from 'react-apollo';
 import { gql } from 'apollo-boost';
 const QUERY_GOALS = gql`
 query {
@@ -31,3 +31,53 @@ export function GoalInfo() {
     </div>
   ));
 }
+
+const CREATE_GOAL = gql`
+  mutation createGoal($summary: String!, $details: String!){
+    createGoal (summary: $summary, details: $details){
+      id
+      summary
+      details
+  }
+}
+`;
+
+setTimeout(() => {  console.log(gql); }, 2000);
+
+export function CreateGoal() {
+  let inputDetails, inputSummary;
+  const [createGoal, { data }  ] = useMutation(CREATE_GOAL);
+  return (
+    <div>
+      <form
+        onSubmit={e => {
+          e.preventDefault();
+          createGoal({ variables: {
+            details: inputDetails.value,
+            summary: inputSummary.value
+        } });
+        inputDetails.value = '';
+        inputSummary.value = '';
+        window.location.reload();
+      }}
+      style = {{ marginTop: '2em', marginBottom: '2em' }}
+     >
+     <label>Details: </label>
+     <input
+       ref={node => {
+        inputDetails = node;
+       }}
+       style={{ marginRight: '1em' }}
+     />
+     <label>Summary: </label>
+     <input
+       ref={node => {
+         inputSummary = node;
+       }}
+       style={{ marginRight: '1em' }}
+     />
+     
+     <button type="submit" style={{ cursor: 'pointer' }}>Add a Goal</button>
+    </form>
+   </div>
+  );}
