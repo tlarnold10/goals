@@ -36,7 +36,19 @@ class CreateGoal(graphene.Mutation):
         goal = Goal(summary=summary, details=details)
         goal.save()
 
+class DeleteGoal(graphene.Mutation):
+    class Arguments:
+        summary = graphene.String()
+
+    goal = graphene.Field(GoalType)
+
+    def mutate(self, info, summary):
+        goal = Goal.objects.get(summary=summary)
+        if goal is not None:
+            goal.delete()
+
 class Mutation(graphene.ObjectType):
     create_goal = CreateGoal.Field()
+    delete_goal = DeleteGoal.Field()
 
 schema = graphene.Schema(query=Query, mutation=Mutation)

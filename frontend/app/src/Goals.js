@@ -80,3 +80,51 @@ export function CreateGoal() {
     </form>
    </div>
   );}
+
+
+const DELETE_GOAL = gql`
+  mutation DeleteGoal($summary: String!){
+    deleteGoal (summary: $summary) {
+      Goal{
+        summary
+        details
+      }
+    }
+  }
+`;
+
+export function DeleteGoal() {
+  let inputSummary;
+  const [deleteGoal, { data }] = useMutation(DELETE_GOAL);
+  return (
+    <div>
+      <form
+        onSubmit={e => {
+          e.preventDefault();
+          deleteGoal({ varialbes: {summary:inputSummary.value}});
+        inputSummary.value = '';
+        // window.location.reload();
+        }}
+      >
+        <label>Goal to Delete: </label>
+        <input
+          ref={node => {
+            inputSummary = node;
+          }}
+          style={{ marginRight: '1em' }}
+        />
+        <button type="submit" style={{ cursor: 'pointer' }}>Delete a Goal</button>
+      </form>
+    </div>
+  )
+}
+
+// So this is the graphql that will delete a specific goal
+// mutation {
+//   deleteGoal (summary:"test") {
+//     goal {
+//       summary
+//       details
+//     }
+//   }
+// }
