@@ -33,7 +33,7 @@ export function GoalInfo() {
 }
 
 const CREATE_GOAL = gql`
-  mutation createGoal($summary: String!, $details: String!){
+  mutation CreateGoal($summary: String!, $details: String!){
     createGoal (summary: $summary, details: $details){
       id
       summary
@@ -42,21 +42,19 @@ const CREATE_GOAL = gql`
 }
 `;
 
-setTimeout(() => {  console.log(gql); }, 2000);
-
 export function CreateGoal() {
   let inputDetails, inputSummary;
-  const [createGoal, data  ] = useMutation(CREATE_GOAL);
+  const [createGoal, { data } ] = useMutation(CREATE_GOAL);
   return (
     <div>
       <form
         onSubmit={e => {
           e.preventDefault();
-          createGoal({ variables: { data: {
+          createGoal({ variables: { 
             details: inputDetails.value,
             summary: inputSummary.value
-        }}});
-        setTimeout(() => {  console.log(inputDetails.value); }, 2000);
+        }});
+        // setTimeout(() => {  console.log(inputDetails.value); }, 2000);
         inputDetails.value = '';
         inputSummary.value = '';
         window.location.reload();

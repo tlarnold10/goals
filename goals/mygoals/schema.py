@@ -23,4 +23,20 @@ class Query(graphene.ObjectType):
     def resolve_all_steps(root, info):
         return Step.objects.all()
 
-schema = graphene.Schema(query=Query)
+class CreateGoal(graphene.Mutation):
+    id = graphene.Int()
+    summary = graphene.String()
+    details = graphene.String()
+
+    class Arguments:
+        summary = graphene.String()
+        details = graphene.String()
+
+    def mutate(self, info, summary, details):
+        goal = Goal(summary=summary, details=details)
+        goal.save()
+
+class Mutation(graphene.ObjectType):
+    create_goal = CreateGoal.Field()
+
+schema = graphene.Schema(query=Query, mutation=Mutation)
