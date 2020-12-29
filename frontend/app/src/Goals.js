@@ -46,16 +46,17 @@ setTimeout(() => {  console.log(gql); }, 2000);
 
 export function CreateGoal() {
   let inputDetails, inputSummary;
-  const [createGoal, { data }  ] = useMutation(CREATE_GOAL);
+  const [createGoal, data  ] = useMutation(CREATE_GOAL);
   return (
     <div>
       <form
         onSubmit={e => {
           e.preventDefault();
-          createGoal({ variables: {
+          createGoal({ variables: { data: {
             details: inputDetails.value,
             summary: inputSummary.value
-        } });
+        }}});
+        setTimeout(() => {  console.log(inputDetails.value); }, 2000);
         inputDetails.value = '';
         inputSummary.value = '';
         window.location.reload();
