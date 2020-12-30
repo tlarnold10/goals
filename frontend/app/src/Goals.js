@@ -86,7 +86,7 @@ export function CreateGoal() {
 const DELETE_GOAL = gql`
   mutation DeleteGoal($id: ID!){
     deleteGoal (id: $id) {
-      Goal{
+      goal{
         id
         summary
         details
