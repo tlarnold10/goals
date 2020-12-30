@@ -6,7 +6,11 @@ import { ApolloProvider } from 'react-apollo';
 import { CreateGoal, GoalInfo, DeleteGoal } from './Goals';
 
 const client = new ApolloClient({
-  uri: 'http://localhost:8000/graphql'
+  uri: 'http://localhost:8000/graphql',
+  onError: ({ networkError, graphQLErrors }) => {
+    console.log('graphQLErrors', graphQLErrors)
+    console.log('networkError', networkError)
+  }
 });
 
 const App = () => (

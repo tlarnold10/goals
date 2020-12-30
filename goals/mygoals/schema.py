@@ -38,12 +38,12 @@ class CreateGoal(graphene.Mutation):
 
 class DeleteGoal(graphene.Mutation):
     class Arguments:
-        summary = graphene.String()
+        id = graphene.ID()
 
     goal = graphene.Field(GoalType)
 
-    def mutate(self, info, summary):
-        goal = Goal.objects.get(summary=summary)
+    def mutate(self, info, id):
+        goal = Goal.objects.get(id=id)
         if goal is not None:
             goal.delete()
 

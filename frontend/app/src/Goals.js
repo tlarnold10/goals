@@ -4,7 +4,8 @@ import { gql } from 'apollo-boost';
 const QUERY_GOALS = gql`
 query {
     allGoals {
-      summary,
+      id
+      summary
       details
     }
   }
@@ -26,7 +27,7 @@ export function GoalInfo() {
   return data.allGoals.map(({ id, summary, details }) => (
     <div key={id}>
       <p>
-        Goal - {id}: {summary} {details}
+        {id}: {summary} || {details}
       </p>
     </div>
   ));
@@ -83,9 +84,10 @@ export function CreateGoal() {
 
 
 const DELETE_GOAL = gql`
-  mutation DeleteGoal($summary: String!){
-    deleteGoal (summary: $summary) {
+  mutation DeleteGoal($id: ID!){
+    deleteGoal (id: $id) {
       Goal{
+        id
         summary
         details
       }
@@ -94,22 +96,22 @@ const DELETE_GOAL = gql`
 `;
 
 export function DeleteGoal() {
-  let inputSummary;
+  let inputID;
   const [deleteGoal, { data }] = useMutation(DELETE_GOAL);
   return (
     <div>
       <form
         onSubmit={e => {
           e.preventDefault();
-          deleteGoal({ varialbes: {summary:inputSummary.value}});
-        inputSummary.value = '';
-        // window.location.reload();
+          deleteGoal({ variables: {id:inputID.value}});
+          inputID.value = '';
+          // window.location.reload();
         }}
       >
         <label>Goal to Delete: </label>
         <input
           ref={node => {
-            inputSummary = node;
+            inputID = node;
           }}
           style={{ marginRight: '1em' }}
         />
