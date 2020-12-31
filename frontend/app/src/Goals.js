@@ -11,6 +11,27 @@ query {
   }
 `;
 
+
+
+const DELETE_GOAL = gql`
+  mutation DeleteGoal($id: ID!){
+    deleteGoal (id: $id) {
+      goal{
+        id
+        summary
+        details
+      }
+    }
+  }
+`;
+
+const DeleteGoal = (keyId, deleteGoal) => {
+  let inputID;
+  inputID = keyId;
+  deleteGoal({ variables: {id:inputID}});
+  window.location.reload();
+}
+
 export function GoalInfo() {
   // Polling: provides near-real-time synchronization with
   // your server by causing a query to execute periodically
@@ -20,15 +41,17 @@ export function GoalInfo() {
       pollInterval: 500 // refetch the result every 0.5 second
     }
   );
-  
+  const [deleteGoal] = useMutation(DELETE_GOAL);
   // should handle loading status
   if (loading) return <p>Loading...</p>;
    
   return data.allGoals.map(({ id, summary, details }) => (
     <div key={id}>
-      <p>
-        {id}: {summary} || {details}
-      </p>
+        <h3>{id}: {summary}</h3>
+        <p>{details}</p> 
+        <button onClick={() => deleteGoal({
+          variables: {id:id}})
+        }>Delete</button>
     </div>
   ));
 }
@@ -83,43 +106,6 @@ export function CreateGoal() {
   );}
 
 
-const DELETE_GOAL = gql`
-  mutation DeleteGoal($id: ID!){
-    deleteGoal (id: $id) {
-      goal{
-        id
-        summary
-        details
-      }
-    }
-  }
-`;
-
-export function DeleteGoal() {
-  let inputID;
-  const [deleteGoal, { data }] = useMutation(DELETE_GOAL);
-  return (
-    <div>
-      <form
-        onSubmit={e => {
-          e.preventDefault();
-          deleteGoal({ variables: {id:inputID.value}});
-          inputID.value = '';
-          // window.location.reload();
-        }}
-      >
-        <label>Goal to Delete: </label>
-        <input
-          ref={node => {
-            inputID = node;
-          }}
-          style={{ marginRight: '1em' }}
-        />
-        <button type="submit" style={{ cursor: 'pointer' }}>Delete a Goal</button>
-      </form>
-    </div>
-  )
-}
 
 // So this is the graphql that will delete a specific goal
 // mutation {
