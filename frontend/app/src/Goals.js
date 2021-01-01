@@ -53,6 +53,8 @@ export function GoalInfo() {
             <p>Goal Details: {details}</p>
           </div>
           <div class="uk-card uk-card-default uk-card-body">
+            <span uk-icon="pencil"></span>
+            <span>&emsp;&emsp;</span>
             <button class="uk-button uk-button-danger" onClick={() => deleteGoal({
                                                                         variables: {id:id}})
             }>Delete</button>
@@ -61,6 +63,10 @@ export function GoalInfo() {
         <hr class="uk-divider-icon"/>
     </div>
   ));
+}
+
+function doSomeShit() {
+  console.log("welcome")
 }
 
 const CREATE_GOAL = gql`
