@@ -15,15 +15,15 @@ const client = new ApolloClient({
 
 const App = () => (
   <ApolloProvider client={client}>
-    <div style={{
+    <div  class="uk-container" style={{
       backgroundColor: '#00000008',
       display: 'flex',
-      justifyContent: 'center',
-      alignItems:'center',
+      justifyContent: 'left',
+      alignItems:'left',
       height: '100vh',
       flexDirection: 'column'
     }}>
-      <h2>My first Apollo app 🚀</h2>
+    <h1 class="uk-heading-bullet">Let's set some goals and crush them!</h1>
 
     <CreateGoal/>
     <GoalInfo/> 

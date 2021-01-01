@@ -47,11 +47,12 @@ export function GoalInfo() {
    
   return data.allGoals.map(({ id, summary, details }) => (
     <div key={id}>
-        <h3>{id}: {summary}</h3>
-        <p>{details}</p> 
-        <button onClick={() => deleteGoal({
+        <h3>Goal #{id}: {summary}</h3>
+        <p>Goal Details: {details}</p>
+        <button class="uk-button uk-button-danger" onClick={() => deleteGoal({
           variables: {id:id}})
         }>Delete</button>
+        <hr class="uk-divider-icon"/>
     </div>
   ));
 }
@@ -85,22 +86,27 @@ export function CreateGoal() {
       }}
       style = {{ marginTop: '2em', marginBottom: '2em' }}
      >
-     <label>Details: </label>
-     <input
-       ref={node => {
-        inputDetails = node;
-       }}
-       style={{ marginRight: '1em' }}
-     />
-     <label>Summary: </label>
-     <input
+     <label class="uk-form-label" >Summary: </label>
+     <div class="uk-form-controls">
+     <input class="uk-input" 
        ref={node => {
          inputSummary = node;
        }}
        style={{ marginRight: '1em' }}
      />
-     
-     <button type="submit" style={{ cursor: 'pointer' }}>Add a Goal</button>
+     </div>
+     <label class="uk-form-label" >Details: </label>
+     <div class="uk-form-controls">
+     <input class="uk-input" 
+       ref={node => {
+        inputDetails = node;
+       }}
+       style={{ marginRight: '1em' }}
+     />
+     </div>    
+     <br/> 
+     <button type="submit" class="uk-button uk-button-primary" 
+              style={{ cursor: 'pointer' }}>Add a Goal</button>
     </form>
    </div>
   );}
