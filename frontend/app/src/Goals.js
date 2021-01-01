@@ -47,11 +47,17 @@ export function GoalInfo() {
    
   return data.allGoals.map(({ id, summary, details }) => (
     <div key={id}>
-        <h3>Goal #{id}: {summary}</h3>
-        <p>Goal Details: {details}</p>
-        <button class="uk-button uk-button-danger" onClick={() => deleteGoal({
-          variables: {id:id}})
-        }>Delete</button>
+        <h3>Goal: {summary}</h3>
+        <div class="uk-grid-column-small uk-grid-row-large uk-child-width-1-3@s uk-text-center" uk-grid>
+          <div class="uk-card uk-card-default uk-card-body">
+            <p>Goal Details: {details}</p>
+          </div>
+          <div class="uk-card uk-card-default uk-card-body">
+            <button class="uk-button uk-button-danger" onClick={() => deleteGoal({
+                                                                        variables: {id:id}})
+            }>Delete</button>
+          </div>
+        </div>
         <hr class="uk-divider-icon"/>
     </div>
   ));
