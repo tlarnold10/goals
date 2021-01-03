@@ -1,6 +1,9 @@
 {
   "name": "datasets",
-  "version": "10.19.0",
+  "version": "1.0.0",
+  "engines": {
+    "node":"10.x"
+  },
   "main": "index.js",
   "repository": "goals",
   "author": "Trevor Arnold",
