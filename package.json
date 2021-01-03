@@ -11,8 +11,7 @@
   "license": "MIT",
   "private": true,
   "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build"
+    "start": "npm start",
   },
   "cacheDirectories": [
     "frontend/node_modules"
