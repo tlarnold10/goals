@@ -11,7 +11,8 @@
   "license": "MIT",
   "private": true,
   "scripts": {
-    "heroku-prebuild": "NODE_ENV=production cd frontend/ && yarn install && yarn build && cd .."
+    "heroku-prebuild": "NODE_ENV=production cd frontend/ && yarn install && yarn build && cd ..",
+    "heroku-postbuild": "webpack --config webpack.prod.js"
   },
   "cacheDirectories": [
     "frontend/node_modules"
