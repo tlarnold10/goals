@@ -1,15 +1,15 @@
 {
-    "name": "datasets",
-    "version": "1.0.0",
-    "main": "index.js",
-    "repository": "goals",
-    "author": "Trevor Arnold",
-    "license": "MIT",
-    "private": true,
-    "scripts": {
-      "heroku-prebuild": "NODE_ENV=production cd frontend/ && yarn install && yarn build && cd .."
-    },
-    "cacheDirectories": [
-      "frontend/node_modules"
-    ]
-  }
+  "name": "datasets",
+  "version": "10.19.0",
+  "main": "index.js",
+  "repository": "goals",
+  "author": "Trevor Arnold",
+  "license": "MIT",
+  "private": true,
+  "scripts": {
+    "heroku-prebuild": "NODE_ENV=production cd frontend/ && yarn install && yarn build && cd .."
+  },
+  "cacheDirectories": [
+    "frontend/node_modules"
+  ]
+}
