@@ -1,1 +1,1 @@
-fuck: gunicorn goals.wsgi
+web: gunicorn goals.wsgi
