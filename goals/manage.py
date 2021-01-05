@@ -5,10 +5,7 @@ import sys
 
 
 def main():
-    try:
-        os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'goals.settings')
-    except:
-        print("FFFFFFFFFFFFFFFFFFFFFFFFFFFFUUUUUUUUUUUUUUUUUUUUUUUCCCCCCCCCCCCCCCCCCCCKKKKKKKKKKKKKK")
+    os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'goals.settings')
     try:
         from django.core.management import execute_from_command_line
     except ImportError as exc:
