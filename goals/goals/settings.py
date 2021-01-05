@@ -43,7 +43,7 @@ INSTALLED_APPS = [
     'corsheaders',
 
     # apps
-    'mygoals',
+    'goals.mygoals',
 ]
 
 MIDDLEWARE = [
