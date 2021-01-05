@@ -135,5 +135,5 @@ STATICFILES_DIRS = (os.path.join(BASE_DIR, "static"),)
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
 GRAPHENE = {
-    'SCHEMA' : 'mygoals.schema.schema'
+    'SCHEMA' : 'goals.mygoals.schema.schema'
 }
