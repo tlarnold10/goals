@@ -25,7 +25,8 @@ SECRET_KEY = '*czm&g_)7$l#^p)+68r-$=#%la@axah%nzmt-10(62fe+%qi3a'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['arnold-goals.herokuapp.com' ]
+ALLOWED_HOSTS = ['arnold-goals.herokuapp.com',
+                    'localhost' ]
 
 
 # Application definition
@@ -43,7 +44,7 @@ INSTALLED_APPS = [
     'corsheaders',
 
     # apps
-    'goals.mygoals',
+    'mygoals',
 ]
 
 MIDDLEWARE = [
@@ -57,7 +58,7 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
-ROOT_URLCONF = 'goals.goals.urls'
+ROOT_URLCONF = 'goals.urls'
 
 CORS_ORIGIN_WHITELIST = [
     "http://localhost:3000",
@@ -130,10 +131,12 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.0/howto/static-files/
 
-STATIC_URL = '/goals/static/'
-STATICFILES_DIRS = (os.path.join(BASE_DIR, "goals.static"),)
-STATIC_ROOT = os.path.join(BASE_DIR, 'goals.staticfiles')
+STATIC_URL = '/static/'
+STATICFILES_DIRS = (os.path.join(BASE_DIR, "static"),)
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+
+REACT_APP_PATH = os.path.join(BASE_DIR, 'frontend')
 
 GRAPHENE = {
-    'SCHEMA' : 'goals.mygoals.schema.schema'
+    'SCHEMA' : 'mygoals.schema.schema'
 }
