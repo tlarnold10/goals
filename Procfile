@@ -1,1 +1,1 @@
-web: gunicorn goals.goals.wsgi
+web: gunicorn goals.wsgi
