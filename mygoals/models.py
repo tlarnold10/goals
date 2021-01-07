@@ -15,3 +15,10 @@ class Step(models.Model):
 
     def __str__(self):
         return self.details
+
+class Sugar(models.Model):
+    grams = models.IntegerField()
+    date = models.DateField()
+
+    def __str__(self):
+        return self.grams

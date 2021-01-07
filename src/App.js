@@ -3,7 +3,7 @@ import './App.css';
 import React from 'react';
 import ApolloClient from 'apollo-boost';
 import { ApolloProvider } from 'react-apollo';
-import { CreateGoal, GoalInfo, DeleteGoal } from './Goals';
+import { CreateGoal, GoalInfo, DeleteGoal, CreateSugar, SugarInfo } from './Goals';
 
 const client = new ApolloClient({
   uri: 'http://localhost:8000/graphql/',
@@ -28,7 +28,10 @@ const App = () => (
     <CreateGoal/>
     <GoalInfo/> 
        
+    <h1 class="uk-heading-bullet">You need to cut back on the sugar bro!</h1>
 
+    <SugarInfo/>
+    <CreateSugar/>
     </div>
   </ApolloProvider>
 

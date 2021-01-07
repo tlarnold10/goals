@@ -124,13 +124,75 @@ export function CreateGoal() {
   );}
 
 
+const QUERY_SUGAR = gql`
+query {
+    allSugar {
+      id,
+      grams,
+      date
+    }
+  }
+`;
 
-// So this is the graphql that will delete a specific goal
-// mutation {
-//   deleteGoal (summary:"test") {
-//     goal {
-//       summary
-//       details
-//     }
-//   }
-// }
+
+export function SugarInfo() {
+  const { data, loading } = useQuery(
+    QUERY_SUGAR, {
+      pollInterval: 500 // refetch the result every 0.5 second
+    }
+  );
+  if (loading) return <p>Loading...</p>;
+   
+  return data.allSugar.map(({ id, date, grams }) => (
+    <div key={id}>
+        <h3>Date: {date}</h3>
+        <div class="uk-grid-column-small uk-grid-row-large uk-child-width-1-3@s uk-text-center" uk-grid>
+          <div class="uk-card uk-card-default uk-card-body">
+            <p>Sugar Intake: {grams}</p>
+          </div>
+        </div>
+        <hr class="uk-divider-icon"/>
+    </div>
+  ));
+}
+
+
+const CREATE_SUGAR = gql`
+  mutation CreateSugar($grams: Int!){
+    CreateSugar (grams: $grams){
+      grams
+  }
+}
+`;
+
+export function CreateSugar() {
+  let inputGrams;
+  const [createSugar, { data } ] = useMutation(CREATE_SUGAR);
+  return (
+    <div>
+      <form
+        onSubmit={e => {
+          e.preventDefault();
+          createSugar({ variables: { 
+            grams: inputGrams.value
+        }});
+        inputGrams.value = '';
+        window.location.reload();
+      }}
+      style = {{ marginTop: '2em', marginBottom: '2em' }}
+     >
+     <label class="uk-form-label" >Sugar Intake (grams): </label>
+     <div class="uk-form-controls">
+     <input class="uk-input" 
+       ref={node => {
+         inputGrams = node;
+       }}
+       style={{ marginRight: '1em' }}
+     />
+     </div>   
+     <br/> 
+     <button type="submit" class="uk-button uk-button-primary" 
+              style={{ cursor: 'pointer' }}>Log</button>
+    </form>
+   </div>
+  );}
