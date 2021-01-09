@@ -18,7 +18,7 @@ class Step(models.Model):
 
 class Sugar(models.Model):
     grams = models.IntegerField()
-    date = models.DateField()
+    date = models.CharField(max_length=20)
 
     def __str__(self):
         return self.grams

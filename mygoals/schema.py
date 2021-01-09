@@ -60,14 +60,14 @@ class DeleteGoal(graphene.Mutation):
 class CreateSugar(graphene.Mutation):
     id = graphene.Int()
     grams = graphene.Int()
-    date = graphene.Date()
+    date = graphene.String()
 
     class Arguments:
         grams = graphene.Int()
-        date = graphene.Date()
+        date = graphene.String()
 
     def mutate(self, info, grams, date):
-        sugar = Sugar(grams=grams, date=datetime.date.now())
+        sugar = Sugar(grams=grams, date=date)
         sugar.save()
 
 class Mutation(graphene.ObjectType):
