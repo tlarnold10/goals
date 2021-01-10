@@ -13,23 +13,42 @@ query {
 `;
 
 
+const DELETE_SUGAR = gql`
+  mutation DeleteSugar($id: ID!){
+    deleteSugar (id: $id) {
+      sugar{
+        id
+        grams
+        date
+      }
+    }
+  }
+`;
+
+const DeleteSugar = (keyId, deleteSugar) => {
+  let inputID;
+  inputID = keyId;
+  deleteSugar({ variables: {id:inputID}});
+  window.location.reload();
+}
+
+
 export function SugarInfo() {
   const { data, loading } = useQuery(
     QUERY_SUGAR, {
       pollInterval: 500 // refetch the result every 0.5 second
     }
   );
+  const [deleteSugar] = useMutation(DELETE_SUGAR)
   if (loading) return <p>Loading...</p>;
    
   return data.allSugar.map(({ id, date, grams }) => (
-    <div key={id}>
+    <div class="uk-card uk-card-default uk-card-body" key={id}>
         <h3>Date: {date}</h3>
-        <div class="uk-grid-column-small uk-grid-row-large uk-child-width-1-3@s uk-text-center" uk-grid>
-          <div class="uk-card uk-card-default uk-card-body">
             <p>Sugar Intake: {grams} grams</p>
-          </div>
-        </div>
-        <hr class="uk-divider-icon"/>
+            <button class="uk-button uk-button-danger" onClick={() => deleteSugar({
+                                                                        variables: {id:id}})
+            }>Delete</button>
     </div>
   ));
 }

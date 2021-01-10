@@ -70,9 +70,22 @@ class CreateSugar(graphene.Mutation):
         sugar = Sugar(grams=grams, date=date)
         sugar.save()
 
+
+class DeleteSugar(graphene.Mutation):
+    class Arguments:
+        id = graphene.ID()
+
+    sugar = graphene.Field(SugarType)
+
+    def mutate(self, info, id):
+        sugar = Sugar.objects.get(id=id)
+        if sugar is not None:
+            sugar.delete()
+
 class Mutation(graphene.ObjectType):
     create_goal = CreateGoal.Field()
     delete_goal = DeleteGoal.Field()
     create_sugar = CreateSugar.Field()
+    delete_sugar = DeleteSugar.Field()
 
 schema = graphene.Schema(query=Query, mutation=Mutation)

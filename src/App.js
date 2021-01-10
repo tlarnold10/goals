@@ -21,18 +21,19 @@ const App = () => (
       display: 'flex',
       justifyContent: 'left',
       alignItems:'left',
-      height: '100vh',
       flexDirection: 'column'
     }}>
     <h1 class="uk-heading-bullet">Let's set some goals and crush them!</h1>
-
     <CreateGoal/>
-    <GoalInfo/> 
+    <div class="uk-child-width-expand@s uk-text-center" uk-grid> 
+      <GoalInfo/> 
+    </div>
        
     <h1 class="uk-heading-bullet">You need to cut back on the sugar bro!</h1>
-
-    <SugarInfo/>
     <CreateSugar/>
+    <div class="uk-child-width-expand@s uk-text-center" uk-grid> 
+      <SugarInfo/>
+    </div>
     </div>
   </ApolloProvider>
 
