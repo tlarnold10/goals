@@ -27,8 +27,13 @@ const DELETE_GOAL = gql`
 `;
 
 const EDIT_GOAL = gql`
-  mutation UpDateGoal($id: ID!, $details: Details!) {
-    updateGoal(id: $id, details: $details)
+  mutation UpdateGoal($id: ID!, $details: String!) {
+    updateGoal(id: $id, details: $details) {
+      goal {
+        id
+        details
+      }
+    }
   }
 `;
 

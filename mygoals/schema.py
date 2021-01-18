@@ -57,6 +57,18 @@ class DeleteGoal(graphene.Mutation):
         if goal is not None:
             goal.delete()
 
+class UpdateGoal(graphene.Mutation):
+    class Arguments:
+        id = graphene.ID()
+        details = graphene.String()
+
+    goal = graphene.Field(GoalType)
+    
+    def mutate(self, info, id):
+        goal = Goal.objects.get(id=id)
+        bound_form = self.form_class(request.POST, instance=goal)
+        bound_form.save()
+
 class CreateSugar(graphene.Mutation):
     id = graphene.Int()
     grams = graphene.Int()
@@ -69,6 +81,7 @@ class CreateSugar(graphene.Mutation):
     def mutate(self, info, grams, date):
         sugar = Sugar(grams=grams, date=date)
         sugar.save()
+
 
 
 class DeleteSugar(graphene.Mutation):
@@ -87,5 +100,6 @@ class Mutation(graphene.ObjectType):
     delete_goal = DeleteGoal.Field()
     create_sugar = CreateSugar.Field()
     delete_sugar = DeleteSugar.Field()
+    update_goal = UpdateGoal.Field()
 
 schema = graphene.Schema(query=Query, mutation=Mutation)
