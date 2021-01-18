@@ -1,6 +1,7 @@
 import React from 'react';
 import { useQuery, useMutation } from 'react-apollo';
 import { gql } from 'apollo-boost';
+import { useState } from 'react';
 const QUERY_GOALS = gql`
 query {
     allGoals {
@@ -25,10 +26,23 @@ const DELETE_GOAL = gql`
   }
 `;
 
+const EDIT_GOAL = gql`
+  mutation UpDateGoal($id: ID!, $details: Details!) {
+    updateGoal(id: $id, details: $details)
+  }
+`;
+
 const DeleteGoal = (keyId, deleteGoal) => {
   let inputID;
   inputID = keyId;
   deleteGoal({ variables: {id:inputID}});
+  window.location.reload();
+}
+
+const EditGoal = (keyId, editGoal) => {
+  let inputID;
+  inputID = keyId;
+  editGoal({ variables: {id:inputID}});
   window.location.reload();
 }
 
@@ -42,29 +56,33 @@ export function GoalInfo() {
     }
   );
   const [deleteGoal] = useMutation(DELETE_GOAL);
+  const [editGoal] = useMutation(EDIT_GOAL);
   // should handle loading status
   if (loading) return <p>Loading...</p>;
+  let inputDetails;
    
   return data.allGoals.map(({ id, summary, details }) => (
     <div key={id}>
         <h3>Goal: {summary}</h3>
           <div class="uk-card uk-card-default uk-card-body">
-            <p>Goal Details: {details}</p>
+            <p>Goal Details:</p>
+            <input class="uk-input" type="text" value={ details }
+              ref={node => {
+                inputDetails = node;
+              }}
+              style={{ marginRight: '1em' }}
+            />
           </div>
           <div class="uk-card uk-card-default uk-card-body">
-            <span uk-icon="pencil"></span>
+            <button class="uk-button uk-button-secondary" onClick={() => editGoal({
+              variables: {id:id, details: inputDetails.value}})}>Edit</button>
             <span>&emsp;&emsp;</span>
             <button class="uk-button uk-button-danger" onClick={() => deleteGoal({
-                                                                        variables: {id:id}})
-            }>Delete</button>
+              variables: {id:id}})}>Delete</button>
         </div>
         <hr class="uk-divider-icon"/>
     </div>
   ));
-}
-
-function doSomeShit() {
-  console.log("welcome")
 }
 
 const CREATE_GOAL = gql`
@@ -79,7 +97,7 @@ const CREATE_GOAL = gql`
 
 export function CreateGoal() {
   let inputDetails, inputSummary;
-  const [createGoal, { data } ] = useMutation(CREATE_GOAL);
+  const [createGoal] = useMutation(CREATE_GOAL);
   return (
     <div>
       <form
