@@ -58,16 +58,20 @@ class DeleteGoal(graphene.Mutation):
             goal.delete()
 
 class UpdateGoal(graphene.Mutation):
+    id = graphene.Int()
+    summary = graphene.String()
+    details = graphene.String()
+
     class Arguments:
         id = graphene.ID()
         details = graphene.String()
 
     goal = graphene.Field(GoalType)
     
-    def mutate(self, info, id):
+    def mutate(self, info, id, details):
         goal = Goal.objects.get(id=id)
-        bound_form = self.form_class(request.POST, instance=goal)
-        bound_form.save()
+        goal.details = details
+        goal.save()
 
 class CreateSugar(graphene.Mutation):
     id = graphene.Int()

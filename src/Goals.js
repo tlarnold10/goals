@@ -71,7 +71,7 @@ export function GoalInfo() {
         <h3>Goal: {summary}</h3>
           <div class="uk-card uk-card-default uk-card-body">
             <p>Goal Details:</p>
-            <input class="uk-input" type="text" value={ details }
+            <input class="uk-input" type="text" defaultValue={ details }
               ref={node => {
                 inputDetails = node;
               }}
@@ -80,7 +80,7 @@ export function GoalInfo() {
           </div>
           <div class="uk-card uk-card-default uk-card-body">
             <button class="uk-button uk-button-secondary" onClick={() => editGoal({
-              variables: {id:id, details: inputDetails.value}})}>Edit</button>
+              variables: {id:id, details: inputDetails.value}})}>Save</button>
             <span>&emsp;&emsp;</span>
             <button class="uk-button uk-button-danger" onClick={() => deleteGoal({
               variables: {id:id}})}>Delete</button>
