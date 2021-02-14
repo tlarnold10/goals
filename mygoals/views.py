@@ -11,7 +11,7 @@ class FrontendAppView(View):
     Serves the compiled frontend entry point (only works if you have run `yarn
     build`).
     """
-    index_file_path = os.path.join(settings.STATICFILES_DIRS[0], 'index.html')
+    index_file_path = os.path.join(settings.REACT_APP_PATH, 'build', 'index.html')
     def get(self, request):
         try:
             print(self.index_file_path)
