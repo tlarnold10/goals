@@ -78,6 +78,7 @@ export function GoalInfo() {
               style={{ marginRight: '1em' }}
             />
           </div>
+          <progress class="uk-progress" value="" max=""></progress>
           <div class="uk-card uk-card-default uk-card-body">
             <button class="uk-button uk-button-secondary" onClick={() => editGoal({
               variables: {id:id, details: inputDetails.value}})}>Save</button>
